@@ -1,5 +1,5 @@
 Please create a configuration.json file in this folder
-with the following entries, change with your credentials
+with the following entries
 
 {
   "token": "TELEGRAM-TOKEN",
@@ -12,3 +12,7 @@ with the following entries, change with your credentials
 	"test.testService"
   ]
 }
+
+- Change TELEGRAM-Token to your token
+- Enter the allowed Chat Ids in the allowedChatIds array
+ 
