@@ -45,6 +45,7 @@ def	start(bot, update):
 	bot.sendMessage(update.message.chat_id, text='Boti wurde gestartet')
 	
 def	help(bot, update):
+	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
 	if False == utils_inst.chatId_allowed(update.message.chat_id):
 		bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
 	# TODO log not existing Users
@@ -73,6 +74,7 @@ def main():
 	# register handlers
 	dispatcher.addTelegramCommandHandler("start", start)
 	dispatcher.addTelegramCommandHandler("help", help)
+	
 	# register Handlers from service files (dyn)
 	for module in utils_inst.getModules():
 		functions_list = utils_inst.getFunctionsList(utils_inst.getModules()[module])
@@ -89,10 +91,6 @@ def main():
 				dispatcher.addTelegramCommandHandler(funcTXT,function)
 			i = i + 1	
 
-	
-	
-	
-	#print utils_inst.getModules()
 	# on noncommand
 	dispatcher.addUnknownTelegramCommandHandler(unknown)
 	dispatcher.addTelegramMessageHandler(echo)
