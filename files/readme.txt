@@ -9,7 +9,7 @@ with the following entries
     3
   ],
   "modules": [
-	"test.testService"
+	"test/testService"
   ]
 }
 

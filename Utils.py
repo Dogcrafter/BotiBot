@@ -29,9 +29,8 @@ class cl_utils:
 		self.__confData = self.openConfData(confFile)
 		self.__token = self.__confData["token"]
 		self.__chatIds = self.__confData["allowedChatIds"]
-		self.__functions = self.__confData["functions"]
 		self.__modules = self.setModules(path, self.__confData["modules"])
-		
+		self.__helpTxt = ""
 	def openConfData(self,confFile):
 		with open(confFile) as data_file:    
 			confData = json.load(data_file)
@@ -83,3 +82,10 @@ class cl_utils:
 	def getFunctionsList(self,module):
 		functions_list = [o for o in getmembers(module) if isfunction(o[1])]
 		return functions_list
+	# get Help text
+	def getHelpTxt(self):
+		return self.__helpTxt
+	# set Help Text
+	def setHelpTxt(self,text):
+		self.__helpTxt = self.__helpTxt + text 
+	

@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3.4
 # coding=utf-8
 ################################################################################################
-# Name: 		Test Services
+# Name: 		Test Services - Template
 #
 # Beschreibung:	               
 #
@@ -19,8 +19,24 @@ import sys
 import os
 import datetime as dt
 
+# Instance
+#utils = cl_utils()
+# put the help text in this function
+def getHelpTxt():
+	return "/test - Test Help \n/check - Check"
+
+# put your services below
 def test(bot, update):
+	#if False == utils.chatId_allowed(update.message.chat_id):
+	#	bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
+	#	return
 	bot.sendMessage(update.message.chat_id, text='TEST Help')
-	return
+	
+def check(bot, update):
+	#if False == utils.chatId_allowed(update.message.chat_id):
+	#	bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
+	#	return
+	bot.sendMessage(update.message.chat_id, text='Check')
+
 	
 

@@ -46,10 +46,11 @@ def	start(bot, update):
 	
 def	help(bot, update):
 	if False == utils_inst.chatId_allowed(update.message.chat_id):
-		bot.sendMessage(update.message.chat_id, text='Fehler - Nicht registrierter User')
-		# TODO log not existing Users
+		bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
+	# TODO log not existing Users
 		return
-	# get help from each module	
+	# get help from each service	
+	bot.sendMessage(update.message.chat_id, text=utils_inst.getHelpTxt())
 	
 	
 def echo(bot, update):
@@ -80,9 +81,12 @@ def main():
 			# test dyn call of func in module
 			#getattr(utils_inst.getModules()[module],functions_list[i][0])()
 			# handlers
-			funcTxt = functions_list[i][0]
-			function = getattr(utils_inst.getModules()[module],functions_list[i][0])
-			dispatcher.addTelegramCommandHandler(funcTxt,function)
+			funcTXT = functions_list[i][0]
+			if funcTXT == "getHelpTxt":
+				utils_inst.setHelpTxt(getattr(utils_inst.getModules()[module],functions_list[i][0])())
+			else:
+				function = getattr(utils_inst.getModules()[module],functions_list[i][0])
+				dispatcher.addTelegramCommandHandler(funcTXT,function)
 			i = i + 1	
 
 	
