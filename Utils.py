@@ -88,4 +88,17 @@ class cl_utils:
 	# set Help Text
 	def setHelpTxt(self,text):
 		self.__helpTxt = self.__helpTxt + text 
+	def addCommandHandlerFromModules(self,dispatcher):
+		for module in self.__modules:
+			functions_list = self.getFunctionsList(self.__modules[module])
+			i = 0
+			for func in functions_list:
+				# handlers
+				functionText = functions_list[i][0]
+				if functionText == "getHelpTxt":
+					self.setHelpTxt(getattr(self.__modules[module],functions_list[i][0])())
+				else:
+					function = getattr(self.__modules[module],functions_list[i][0])
+				dispatcher.addTelegramCommandHandler(functionText,function)
+				i = i + 1	
 	
