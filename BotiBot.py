@@ -42,7 +42,7 @@ utils_inst = cl_utils()
 # command handlers
 def	start(bot, update):
 	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-	bot.sendMessage(update.message.chat_id, text='Boti wurde gestartet')
+	bot.sendMessage(update.message.chat_id, text='Bot wurde gestartet, bitte mit /helo nachschauen, welche Befehle möglich sind')
 	
 def	help(bot, update):
 	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
@@ -52,11 +52,9 @@ def	help(bot, update):
 		return
 	# get help from each service	
 	bot.sendMessage(update.message.chat_id, text=utils_inst.getHelpTxt())
-	
-	
+
 def echo(bot, update):
 	return
-
 	
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))		
@@ -64,9 +62,6 @@ def error(bot, update, error):
 def unknown(bot, update):
 	bot.sendMessage(chat_id=update.message.chat_id, text="Dieser Befehl ist nicht bekannt. Bitte in /help nachschauen!")
 
-
-
-	
 def main():
 	#create event handler
 	updater = Updater(token = utils_inst.getToken())
@@ -75,22 +70,9 @@ def main():
 	dispatcher.addTelegramCommandHandler("start", start)
 	dispatcher.addTelegramCommandHandler("help", help)
 	
-	# register Handlers from service files (dyn)
-	for module in utils_inst.getModules():
-		functions_list = utils_inst.getFunctionsList(utils_inst.getModules()[module])
-		i = 0
-		for func in functions_list:
-			# test dyn call of func in module
-			#getattr(utils_inst.getModules()[module],functions_list[i][0])()
-			# handlers
-			funcTXT = functions_list[i][0]
-			if funcTXT == "getHelpTxt":
-				utils_inst.setHelpTxt(getattr(utils_inst.getModules()[module],functions_list[i][0])())
-			else:
-				function = getattr(utils_inst.getModules()[module],functions_list[i][0])
-				dispatcher.addTelegramCommandHandler(funcTXT,function)
-			i = i + 1	
-
+	# register Handlers from service modules and registered in configuration.json
+	utils_inst.addCommandHandlerFromModules(dispatcher)
+	
 	# on noncommand
 	dispatcher.addUnknownTelegramCommandHandler(unknown)
 	dispatcher.addTelegramMessageHandler(echo)
