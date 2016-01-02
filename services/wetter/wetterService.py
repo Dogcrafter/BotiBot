@@ -24,7 +24,7 @@ import MySQLdb as mdb
 from MySQLdb import Error
 import telegram
 ######## Helper class ##########################################################################
-class clHelper():
+class Helper():
 	# Init
 	def __init__(self):
 		path = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -34,9 +34,11 @@ class clHelper():
 		self.__databaseTable = self.__confData["databaseTable"]
 		self.__DBConf = self.__confData["DBConf"]
 	def openConfData(self,confFile):
-		with open(confFile) as data_file:    
-			confData = json.load(data_file)
-		return confData
+		try:
+			with open(confFile) as data_file:    
+				confData = json.load(data_file)
+			return confData
+		except: telegram.error.TelegramError("conf.json kann nicht geöffnet werden")
 	
 	def getDataFromDB(self):
 		try:         
@@ -45,9 +47,9 @@ class clHelper():
 				print('Connected to MySQL database')
 
 				dbCursor = dbConnect.cursor()
-				dbCursor.execute("SELECT forecast,trend,temperature,humidity,pressure FROM " +  self.__databaseTable + " ORDER BY timeStamp DESC LIMIT 1")
+				dbCursor.execute("SELECT timestamp,forecast,trend,temperature,humidity,pressure FROM " +  self.__databaseTable + " ORDER BY timeStamp DESC LIMIT 1")
 				result = dbCursor.fetchone()
-				return float(result[0]), result[1], float(result[2]), float(result[3]), float(result[4])
+				return result[0],float(result[1]), result[2], float(result[3]), float(result[4]), float(result[5])
 
 		except Error as e:
 			print(e)
@@ -56,8 +58,8 @@ class clHelper():
 			dbConnect.close
 
 	def getWeather(self):
-		forecast, trend, temp, hum, pressure = self.getDataFromDB()
-		text = "Vorhersage: " + self.getForecastText(forecast) + " " + self.getForecastIcon(forecast) + "\nTrend: " + trend + "\nLuftdruck = %.2f hPa" % pressure + "\nrel Feuchte = %.2f " % hum  + "\nTemperatur = %.2f C" % temp
+		timestamp, forecast, trend, temp, hum, pressure = self.getDataFromDB()
+		text = "Vorhersage: " + self.getForecastText(forecast) + " " + self.getForecastIcon(forecast) + "\nTrend: " + trend + "\nLuftdruck = %.2f hPa" % pressure + "\nrel Feuchte = %.2f " % hum  + "\nTemperatur = %.2f C" % temp + "\n\nZeitpunkt der Berechung: " + str(timestamp)
 		return text	
 	
 	def getForecastText(self,forecast):
@@ -108,7 +110,7 @@ def getHelpTxt():
 
 ######## put your services below ###############################################################
 def wetter(bot, update):
-	inst = clHelper()
+	inst = Helper()
 	text = inst.getWeather()
 	bot.sendMessage(update.message.chat_id, text=text)	
 		

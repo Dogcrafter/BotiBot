@@ -42,7 +42,7 @@ utils_inst = cl_utils()
 # command handlers
 def	start(bot, update):
 	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-	bot.sendMessage(update.message.chat_id, text='Bot wurde gestartet, bitte mit /helo nachschauen, welche Befehle möglich sind')
+	bot.sendMessage(update.message.chat_id, text='Bot wurde gestartet, bitte mit /help nachschauen, welche Befehle möglich sind')
 	
 def	help(bot, update):
 	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)

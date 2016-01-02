@@ -17,7 +17,7 @@
 
 
 ######## Helper class ##########################################################################
-#class clHelper():
+#class Helper():
 
 ######## put the help text in this function ####################################################
 def getHelpTxt():
