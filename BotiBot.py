@@ -52,11 +52,9 @@ def	help(bot, update):
 		return
 	# get help from each service	
 	bot.sendMessage(update.message.chat_id, text=utils_inst.getHelpTxt())
-	
-	
+
 def echo(bot, update):
 	return
-
 	
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))		
@@ -72,7 +70,7 @@ def main():
 	dispatcher.addTelegramCommandHandler("start", start)
 	dispatcher.addTelegramCommandHandler("help", help)
 	
-	# register Handlers from service files (dyn)
+	# register Handlers from service modules and registered in configuration.json
 	utils_inst.addCommandHandlerFromModules(dispatcher)
 	
 	# on noncommand

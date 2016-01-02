@@ -14,13 +14,7 @@
 # Changelog 
 # 1.0.0 - 	Initial release
 ################################################################################################
-import time
-import sys
-import os
-import datetime as dt
 
-# Instance
-#utils = cl_utils()
 # put the help text in this function
 def getHelpTxt():
 	return "/test - Test Help \n/check - Check"
@@ -30,7 +24,7 @@ def test(bot, update):
 	#if False == utils.chatId_allowed(update.message.chat_id):
 	#	bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
 	#	return
-	bot.sendMessage(update.message.chat_id, text='TEST Help')
+	bot.sendMessage(update.message.chat_id, text='Test')
 	
 def check(bot, update):
 	#if False == utils.chatId_allowed(update.message.chat_id):
