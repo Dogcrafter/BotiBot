@@ -77,6 +77,7 @@ class cl_utils:
 			try:
 				return imp.load_source(mname, no_ext + '.py')
 			except:
+				print 'Import Fehler' ,no_ext + '.py'
 				pass
 	# get function list from module
 	def getFunctionsList(self,module):

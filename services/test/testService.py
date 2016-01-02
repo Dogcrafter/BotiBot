@@ -16,11 +16,14 @@
 ################################################################################################
 
 
-# put the help text in this function
-def getHelpTxt():
-	return "/test - Test Help \n/check - Check"
+######## Helper class ##########################################################################
+#class clHelper():
 
-# put your services below
+######## put the help text in this function ####################################################
+def getHelpTxt():
+	return "/test - Test Help \n/check - Check \n"
+
+######## put your services below ###############################################################
 def test(bot, update):
 	#if False == utils.chatId_allowed(update.message.chat_id):
 	#	bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
