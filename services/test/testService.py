@@ -21,7 +21,7 @@
 
 ######## put the help text in this function ####################################################
 def getHelpTxt():
-	return "/test - Test Help \n/check - Check \n"
+	return "/test - Test \n/check - Check \n"
 
 ######## put your services below ###############################################################
 def test(bot, update):

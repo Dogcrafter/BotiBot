@@ -3,7 +3,7 @@
 ################################################################################################
 # Name: 		Weather Services
 #
-# Beschreibung:	Project Klimamonitor is needed              
+# Beschreibung:	Project Klimamonitor is needed             
 #
 # Version: 		1.0.0
 # Author: 		Dogcrafter
@@ -32,7 +32,7 @@ class clHelper():
 		self.__confData = self.openConfData(confFile)
 		self.__databaseName = self.__confData["databaseName"]
 		self.__databaseTable = self.__confData["databaseTable"]
-
+		self.__DBConf = self.__confData["DBConf"]
 	def openConfData(self,confFile):
 		with open(confFile) as data_file:    
 			confData = json.load(data_file)
@@ -40,7 +40,7 @@ class clHelper():
 	
 	def getDataFromDB(self):
 		try:         
-			dbConnect=mdb.connect(host='127.0.0.1', db=self.__databaseName, read_default_file='/home/dogcraft/.my.cnf')
+			dbConnect=mdb.connect(host='127.0.0.1', db=self.__databaseName, read_default_file=self.__DBConf)
 			with dbConnect:
 				print('Connected to MySQL database')
 
