@@ -107,7 +107,7 @@ class Helper():
 
 ######## put the help text in this function ####################################################
 def getHelpTxt():
-	return "/wetter - Liefert aktuelle Wetterdaten \n"
+	return "Wetter Service \n/wetter - Liefert aktuelle Wetterdaten \n"
 
 ######## put your services below ###############################################################
 def wetter(bot, update):

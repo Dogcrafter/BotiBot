@@ -23,7 +23,8 @@ import datetime
 import time
 import telegram
 from telegram import Updater
-from Utils import cl_utils
+from Utils import clUtils
+from auth import clAuth
 
 # Enable logging
 root = logging.getLogger()
@@ -37,7 +38,8 @@ root.addHandler(ch)
 logger = logging.getLogger(__name__)
 
 # Instance
-utils_inst = cl_utils()
+utilsInst = clUtils()
+authInst = clAuth()
 
 # command handlers
 def	start(bot, update):
@@ -46,12 +48,12 @@ def	start(bot, update):
 	
 def	help(bot, update):
 	bot.sendChatAction(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-	if False == utils_inst.chatId_allowed(update.message.chat_id):
+	if False == authInst.chatId_allowed(update.message.chat_id):
 		bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
 	# TODO log not existing Users
 		return
 	# get help from each service	
-	bot.sendMessage(update.message.chat_id, text=utils_inst.getHelpTxt())
+	bot.sendMessage(update.message.chat_id, text=utilsInst.getHelpTxt())
 
 def echo(bot, update):
 	return
@@ -60,18 +62,21 @@ def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))		
 
 def unknown(bot, update):
+	if False == authInst.chatId_allowed(update.message.chat_id):
+		bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
+		return
 	bot.sendMessage(chat_id=update.message.chat_id, text="Dieser Befehl ist nicht bekannt. Bitte in /help nachschauen!")
 
 def main():
 	#create event handler
-	updater = Updater(token = utils_inst.getToken())
+	updater = Updater(token = authInst.getToken())
 	dispatcher = updater.dispatcher
 	# register handlers
 	dispatcher.addTelegramCommandHandler("start", start)
 	dispatcher.addTelegramCommandHandler("help", help)
 	
 	# register Handlers from service modules and registered in configuration.json
-	utils_inst.addCommandHandlerFromModules(dispatcher)
+	utilsInst.addCommandHandlerFromModules(dispatcher)
 	
 	# on noncommand
 	dispatcher.addUnknownTelegramCommandHandler(unknown)

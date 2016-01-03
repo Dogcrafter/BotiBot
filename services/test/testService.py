@@ -21,13 +21,13 @@
 
 ######## put the help text in this function ####################################################
 def getHelpTxt():
-	return "/test - Test \n/check - Check \n"
+	return "Test Service \n/test - Test \n/check - Check \n"
 
 ######## put your services below ###############################################################
 def test(bot, update):
-	#if False == utils.chatId_allowed(update.message.chat_id):
-	#	bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
-	#	return
+#	if False == auth.chatId_allowed(update.message.chat_id):
+#		bot.sendMessage(update.message.chat_id, text='Keine Berechtigung!')
+#		return
 	bot.sendMessage(update.message.chat_id, text='Test')
 	
 def check(bot, update):

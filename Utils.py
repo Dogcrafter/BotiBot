@@ -3,8 +3,8 @@
 ################################################################################################
 # Name: 		Utils Klasse
 #
-# Beschreibung:	Utils Klasse
-#
+# Beschreibung:	Liest dyn. die Service Module ein,   
+#				welche in configuration.json eingetragen wurden.
 #
 # Version: 		1.0.0
 # Author: 		Dogcrafter
@@ -21,31 +21,18 @@ import os
 import imp
 from inspect import getmembers, isfunction
 
-class cl_utils:
+class clUtils:
 	# Init
 	def __init__(self):
 		path = os.path.dirname(os.path.abspath(sys.argv[0]))
 		confFile = path + "/files/configuration.json"
 		self.__confData = self.openConfData(confFile)
-		self.__token = self.__confData["token"]
-		self.__chatIds = self.__confData["allowedChatIds"]
 		self.__modules = self.setModules(path, self.__confData["modules"])
 		self.__helpTxt = ""
 	def openConfData(self,confFile):
 		with open(confFile) as data_file:    
 			confData = json.load(data_file)
 		return confData
-	# Get Security Token
-	def getToken(self):
-		return self.__token
-	# Check ChatId against approved ChatId's
-	def chatId_allowed(self, chatId):
-		ok_list = self.__chatIds
-		if chatId in ok_list:
-			result = True
-		else:
-			result = False
-		return result
 	# get Bot configuration
 	def getFunctions(self):
 		return self.__functions
