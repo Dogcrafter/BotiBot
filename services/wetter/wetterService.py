@@ -4,7 +4,8 @@
 # Name: 		Weather Services
 #
 # Beschreibung:	Project Klimamonitor is needed             
-#
+#				https://github.com/Dogcrafter/klimamonitor Part 1 and Part 2
+#				see https://blog.dogcrafter.de
 # Version: 		1.0.0
 # Author: 		Dogcrafter
 # Author URI: 	https://blog.dogcrafter.de
