@@ -105,12 +105,12 @@ def getList(bot, update):
 	text = inst.getList()
 	bot.sendMessage(update.message.chat_id, text=text)	
 		
-def setList(bot, update):
-	inst.setList(update.message.text)
-	bot.sendMessage(update.message.chat_id, text="gespeichert")	
+#def setList(bot, update):
+#	inst.setList(update.message.text)
+#	bot.sendMessage(update.message.chat_id, text="gespeichert")	
 
-def delList(bot, update):
-	inst.delList()
-	bot.sendMessage(update.message.chat_id, text="Liste geloescht")	
+#def delList(bot, update):
+#	inst.delList()
+#	bot.sendMessage(update.message.chat_id, text="Liste geloescht")	
 
 	

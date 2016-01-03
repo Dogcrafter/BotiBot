@@ -1,4 +1,13 @@
 Please create a configuration.json file in this folder
+and register all service files
+
+{
+  "modules": [
+	"test/testService"
+  ]
+}
+
+Please create a auth.json file in this folder
 with the following entries
 
 {
@@ -7,9 +16,6 @@ with the following entries
     1,
     2,
     3
-  ],
-  "modules": [
-	"test/testService"
   ]
 }
 
